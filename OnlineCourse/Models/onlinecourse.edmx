@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="onlinecourseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Course_Enrolled">
+          <Key>
+            <PropertyRef Name="Enroll_id" />
+          </Key>
+          <Property Name="User_id" Type="int" />
+          <Property Name="Course_Id" Type="int" />
+          <Property Name="Course_Enrolleddate" Type="date" />
+          <Property Name="Course_StartDtae" Type="date" />
+          <Property Name="Course_CompletionDate" Type="date" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+          <Property Name="Enroll_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Course_table">
+          <Key>
+            <PropertyRef Name="Course_Id" />
+          </Key>
+          <Property Name="Course_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Course_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Course_Description" Type="varchar" MaxLength="200" />
+          <Property Name="Course_StartDate" Type="date" />
+          <Property Name="Course_Author" Type="varchar" MaxLength="50" />
+          <Property Name="Course_Duration" Type="varchar" MaxLength="50" />
+          <Property Name="Course_Difficulty" Type="varchar" MaxLength="50" />
+          <Property Name="credit_score" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="User_Table">
+          <Key>
+            <PropertyRef Name="User_Id" />
+          </Key>
+          <Property Name="User_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="Mobile_Number" Type="varchar" MaxLength="10" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="20" />
+          <Property Name="Gender" Type="varchar" MaxLength="20" />
+          <Property Name="Age" Type="int" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Address1" Type="varchar" MaxLength="50" />
+          <Property Name="Address2" Type="varchar" MaxLength="50" />
+          <Property Name="District" Type="varchar" MaxLength="50" />
+          <Property Name="State" Type="varchar" MaxLength="50" />
+          <Property Name="isAdmin" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK__Course_En__Cours__145C0A3F">
+          <End Role="Course_table" Type="Self.Course_table" Multiplicity="0..1" />
+          <End Role="Course_Enrolled" Type="Self.Course_Enrolled" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course_table">
+              <PropertyRef Name="Course_Id" />
+            </Principal>
+            <Dependent Role="Course_Enrolled">
+              <PropertyRef Name="Course_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Course_En__User___1367E606">
+          <End Role="User_Table" Type="Self.User_Table" Multiplicity="0..1" />
+          <End Role="Course_Enrolled" Type="Self.Course_Enrolled" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Table">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Course_Enrolled">
+              <PropertyRef Name="User_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="onlinecourseModelStoreContainer">
+          <EntitySet Name="Course_Enrolled" EntityType="Self.Course_Enrolled" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Course_table" EntityType="Self.Course_table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_Table" EntityType="Self.User_Table" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Course_En__Cours__145C0A3F" Association="Self.FK__Course_En__Cours__145C0A3F">
+            <End Role="Course_table" EntitySet="Course_table" />
+            <End Role="Course_Enrolled" EntitySet="Course_Enrolled" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Course_En__User___1367E606" Association="Self.FK__Course_En__User___1367E606">
+            <End Role="User_Table" EntitySet="User_Table" />
+            <End Role="Course_Enrolled" EntitySet="Course_Enrolled" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="onlinecourseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Course_table">
+          <Key>
+            <PropertyRef Name="Course_Id" />
+          </Key>
+          <Property Name="Course_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Course_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Course_Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Course_StartDate" Type="DateTime" Precision="0" />
+          <Property Name="Course_Author" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Course_Duration" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Course_Difficulty" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="credit_score" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Course_Enrolled" Relationship="onlinecourseModel.FK__Course_En__Cours__145C0A3F" FromRole="Course_table" ToRole="Course_Enrolled" />
+        </EntityType>
+        <EntityType Name="User_Table">
+          <Key>
+            <PropertyRef Name="User_Id" />
+          </Key>
+          <Property Name="User_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mobile_Number" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="District" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="isAdmin" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Course_Enrolled" Relationship="onlinecourseModel.FK__Course_En__User___1367E606" FromRole="User_Table" ToRole="Course_Enrolled" />
+        </EntityType>
+        <EntityContainer Name="onlinecourseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Course_table" EntityType="Self.Course_table" />
+          <EntitySet Name="User_Table" EntityType="Self.User_Table" />
+          <EntitySet Name="Course_Enrolled" EntityType="onlinecourseModel.Course_Enrolled" />
+          <AssociationSet Name="FK__Course_En__Cours__145C0A3F" Association="onlinecourseModel.FK__Course_En__Cours__145C0A3F">
+            <End Role="Course_table" EntitySet="Course_table" />
+            <End Role="Course_Enrolled" EntitySet="Course_Enrolled" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Course_En__User___1367E606" Association="onlinecourseModel.FK__Course_En__User___1367E606">
+            <End Role="User_Table" EntitySet="User_Table" />
+            <End Role="Course_Enrolled" EntitySet="Course_Enrolled" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Course_Enrolled">
+          <Key>
+            <PropertyRef Name="Enroll_id" />
+          </Key>
+          <Property Name="User_id" Type="Int32" />
+          <Property Name="Course_Id" Type="Int32" />
+          <Property Name="Course_Enrolleddate" Type="DateTime" Precision="0" />
+          <Property Name="Course_StartDtae" Type="DateTime" Precision="0" />
+          <Property Name="Course_CompletionDate" Type="DateTime" Precision="0" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Enroll_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Course_table" Relationship="onlinecourseModel.FK__Course_En__Cours__145C0A3F" FromRole="Course_Enrolled" ToRole="Course_table" />
+          <NavigationProperty Name="User_Table" Relationship="onlinecourseModel.FK__Course_En__User___1367E606" FromRole="Course_Enrolled" ToRole="User_Table" />
+        </EntityType>
+        <Association Name="FK__Course_En__Cours__145C0A3F">
+          <End Type="onlinecourseModel.Course_table" Role="Course_table" Multiplicity="0..1" />
+          <End Type="onlinecourseModel.Course_Enrolled" Role="Course_Enrolled" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course_table">
+              <PropertyRef Name="Course_Id" />
+            </Principal>
+            <Dependent Role="Course_Enrolled">
+              <PropertyRef Name="Course_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Course_En__User___1367E606">
+          <End Type="onlinecourseModel.User_Table" Role="User_Table" Multiplicity="0..1" />
+          <End Type="onlinecourseModel.Course_Enrolled" Role="Course_Enrolled" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Table">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Course_Enrolled">
+              <PropertyRef Name="User_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="onlinecourseModelStoreContainer" CdmEntityContainer="onlinecourseEntities">
+          <EntitySetMapping Name="Course_table">
+            <EntityTypeMapping TypeName="onlinecourseModel.Course_table">
+              <MappingFragment StoreEntitySet="Course_table">
+                <ScalarProperty Name="Course_Id" ColumnName="Course_Id" />
+                <ScalarProperty Name="Course_Name" ColumnName="Course_Name" />
+                <ScalarProperty Name="Course_Description" ColumnName="Course_Description" />
+                <ScalarProperty Name="Course_StartDate" ColumnName="Course_StartDate" />
+                <ScalarProperty Name="Course_Author" ColumnName="Course_Author" />
+                <ScalarProperty Name="Course_Duration" ColumnName="Course_Duration" />
+                <ScalarProperty Name="Course_Difficulty" ColumnName="Course_Difficulty" />
+                <ScalarProperty Name="credit_score" ColumnName="credit_score" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_Table">
+            <EntityTypeMapping TypeName="onlinecourseModel.User_Table">
+              <MappingFragment StoreEntitySet="User_Table">
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Mobile_Number" ColumnName="Mobile_Number" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="District" ColumnName="District" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Course_Enrolled">
+            <EntityTypeMapping TypeName="onlinecourseModel.Course_Enrolled">
+              <MappingFragment StoreEntitySet="Course_Enrolled">
+                <ScalarProperty Name="Enroll_id" ColumnName="Enroll_id" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Course_CompletionDate" ColumnName="Course_CompletionDate" />
+                <ScalarProperty Name="Course_StartDtae" ColumnName="Course_StartDtae" />
+                <ScalarProperty Name="Course_Enrolleddate" ColumnName="Course_Enrolleddate" />
+                <ScalarProperty Name="Course_Id" ColumnName="Course_Id" />
+                <ScalarProperty Name="User_id" ColumnName="User_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
